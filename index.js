@@ -18,6 +18,7 @@ async function run() {
         const database = client.db(`${process.env.DB_NAME}`);
         const productCollection = database.collection(`${process.env.DB_COLLECTION1}`);
         const galleryImageCollection = database.collection(`${process.env.DB_COLLECTION2}`);
+        const orderCollection = database.collection(`${process.env.DB_COLLECTION3}`);
 
         //GET API
         //For fetching all the food items
@@ -63,6 +64,14 @@ async function run() {
             res.send(galleryImage);
         });
 
+        //POST API
+        //For sending checkout data of an user to the database
+        app.post('/order', async (req, res) => {
+            const newOrder = req.body;
+            const result = await orderCollection.insertOne(newOrder);
+            console.log(`A document was inserted with the _id: ${result.insertedId}`);
+            res.json(result);            
+        });
 
     } finally {
         // await client.close();
