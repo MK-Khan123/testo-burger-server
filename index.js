@@ -68,8 +68,7 @@ async function run() {
         //For sending checkout data of an user to the database
         app.post('/order', async (req, res) => {
             const newOrder = req.body;
-            const result = await orderCollection.insertOne(newOrder);
-            console.log(`A document was inserted with the _id: ${result.insertedId}`);
+            const result = await orderCollection.insertOne(newOrder);            
             res.json(result);            
         });
 
