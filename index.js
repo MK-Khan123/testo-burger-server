@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.s88xr.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.s88xr.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
@@ -68,8 +68,8 @@ async function run() {
         //For sending checkout data of an user to the database
         app.post('/order', async (req, res) => {
             const newOrder = req.body;
-            const result = await orderCollection.insertOne(newOrder);            
-            res.json(result);            
+            const result = await orderCollection.insertOne(newOrder);
+            res.json(result);
         });
 
     } finally {
